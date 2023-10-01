@@ -8,6 +8,8 @@ type WelcomeScreenProps ={
 }
 
 export default function WelcomeScreen({promoMovie, nameMovie, genre, releaseDate}: WelcomeScreenProps): JSX.Element{
+  const numberOfFilms = 20;
+
   return(
     <div className="welcome-screen">
       <section className="film-card">
@@ -109,26 +111,9 @@ export default function WelcomeScreen({promoMovie, nameMovie, genre, releaseDate
           </ul>
 
           <div className="catalog__films-list">
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
-            <CardFilm/>
+            {Array.from({ length: numberOfFilms }, (_, index) => (
+              <CardFilm key={index} />
+            ))}
           </div>
 
           <div className="catalog__more">
