@@ -1,16 +1,16 @@
 import { Navigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthStatus } from '../../const';
 
 type PriviteRouteProps = {
-  authorizationStatus: AuthorizationStatus;
+  authStatus: AuthStatus;
   children: JSX.Element;
 }
 
 export default function PriviteRoute(props: PriviteRouteProps): JSX.Element{
-  const {authorizationStatus, children} = props;
+  const {authStatus, children} = props;
 
   return(
-    authorizationStatus === AuthorizationStatus.Auth
+    authStatus === AuthStatus.Auth
       ? children
       : <Navigate to={AppRoute.SingIn} />
   );
