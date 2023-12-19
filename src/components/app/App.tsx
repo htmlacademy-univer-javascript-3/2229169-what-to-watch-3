@@ -1,6 +1,5 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import WelcomeScreen from '../welcome-screen/WelcomeScreen';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthStatus } from '../../const';
 import SingIn from '../../pages/sing-in/SingIn';
 import MyList from '../../pages/my-list/MyList';
 import AddReview from '../../pages/add-review/AddReview';
@@ -8,21 +7,26 @@ import Player from '../../pages/player/Player';
 import MoviePage from '../../pages/movie-page/MoviePage';
 import NotFound from '../404-not-found/NotFound';
 import PriviteRoute from '../privite-route/PriviteRoute';
+import MainPage from '../../pages/main-page/MainPage';
+import { FilmDescriptionType } from '../../types/types';
+import { films } from '../../mocks/films';
 
-type AppScreenProps = {
-  promoMovie: string;
-  nameMovie: string;
-  genre: string;
-  releaseDate: number;
-}
 
-export default function App({promoMovie, nameMovie, genre, releaseDate}: AppScreenProps): JSX.Element{
+export default function App({promoMovie, nameMovie, genre, releaseDate}: FilmDescriptionType): JSX.Element{
   return(
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<WelcomeScreen promoMovie={promoMovie} nameMovie={nameMovie} genre={genre} releaseDate={releaseDate}/>}
+          element={
+            <MainPage
+              promoMovie={promoMovie}
+              nameMovie={nameMovie}
+              genre={genre}
+              releaseDate={releaseDate}
+              films={films}
+            />
+          }
         />
         <Route
           path={AppRoute.SingIn}
@@ -32,7 +36,7 @@ export default function App({promoMovie, nameMovie, genre, releaseDate}: AppScre
           path={AppRoute.MyList}
           element={
             <PriviteRoute
-              authorizationStatus={AuthorizationStatus.NoAuth}
+              authStatus={AuthStatus.NoAuth}
             >
               <MyList/>
             </PriviteRoute>
