@@ -8,11 +8,21 @@ import MoviePage from '../../pages/movie-page/MoviePage';
 import NotFound from '../404-not-found/NotFound';
 import PriviteRoute from '../privite-route/PriviteRoute';
 import MainPage from '../../pages/main-page/MainPage';
-import { FilmDescriptionType } from '../../types/types';
-import { films } from '../../mocks/films';
+import { MoviePreview, Movies } from '../../types/types';
 
+type AppProps = {
+  main: {
+    name: string;
+    genre: string;
+    date: number;
+    id: number;
+    img: string;
+  };
+  moviePreviews: MoviePreview[];
+  movies: Movies;
+}
 
-export default function App({promoMovie, nameMovie, genre, releaseDate}: FilmDescriptionType): JSX.Element{
+export default function App(props: AppProps): JSX.Element{
   return(
     <BrowserRouter>
       <Routes>
@@ -20,11 +30,12 @@ export default function App({promoMovie, nameMovie, genre, releaseDate}: FilmDes
           path={AppRoute.Main}
           element={
             <MainPage
-              promoMovie={promoMovie}
-              nameMovie={nameMovie}
-              genre={genre}
-              releaseDate={releaseDate}
-              films={films}
+              id={props.main.id}
+              moviePreviews={props.moviePreviews}
+              name={props.main.name}
+              genre={props.main.genre}
+              date={props.main.date}
+              img={props.main.img}
             />
           }
         />
@@ -44,7 +55,12 @@ export default function App({promoMovie, nameMovie, genre, releaseDate}: FilmDes
         />
         <Route
           path={AppRoute.Film}
-          element={<MoviePage/>}
+          element={
+            <MoviePage
+              movies={props.movies}
+              moviePreviews={props.moviePreviews}
+            />
+          }
         />
         <Route
           path={AppRoute.AddReview}
@@ -52,7 +68,11 @@ export default function App({promoMovie, nameMovie, genre, releaseDate}: FilmDes
         />
         <Route
           path={AppRoute.Player}
-          element={<Player/>}
+          element={
+            <Player
+              movies={props.movies}
+            />
+          }
         />
         <Route
           path={AppRoute.NotFound}

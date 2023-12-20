@@ -1,11 +1,18 @@
 import FilmCard from '../../components/film-card/FilmCard';
 import Footer from '../../components/footer/Footer';
 import ListFilm from '../../components/list-film/ListFilm';
-import { films } from '../../mocks/films';
-import { FilmDescriptionType } from '../../types/types';
+import { MoviePreview } from '../../types/types';
 
+export type MainPageProps = {
+  name: string;
+  id: number;
+  genre: string;
+  date: number;
+  img: string;
+  moviePreviews: MoviePreview[];
+}
 
-export default function MainPage({promoMovie, nameMovie, genre, releaseDate}: FilmDescriptionType): JSX.Element{
+export default function MainPage(props: MainPageProps): JSX.Element{
   return(
     <div className="welcome-screen">
       <section className="film-card">
@@ -36,16 +43,19 @@ export default function MainPage({promoMovie, nameMovie, genre, releaseDate}: Fi
           </ul>
         </header>
         <FilmCard
-          promoMovie={promoMovie}
-          nameMovie={nameMovie}
-          genre={genre}
-          releaseDate={releaseDate}
-          films={films}
+          id={props.id}
+          name={props.name}
+          genre={props.genre}
+          date={props.date}
+          img={props.img}
+          moviePreviews={props.moviePreviews}
         />
       </section>
 
       <div className="page-content">
-        <ListFilm/>
+        <ListFilm
+          moviePreviews={props.moviePreviews} length={20}
+        />
         <Footer/>
       </div>
     </div>
