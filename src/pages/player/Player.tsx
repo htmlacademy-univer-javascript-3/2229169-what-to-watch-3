@@ -1,17 +1,32 @@
-export default function Player(): JSX.Element{
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Movies } from '../../types/types';
+
+type PlayerProps = {
+  movies: Movies;
+}
+
+export default function Player({movies}: PlayerProps): JSX.Element{
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const movie = movies.find((m) => m.id === id);
+
+  if (!movie) {
+    return (<Navigate to='*' />);
+  }
+
   return(
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={movie.videoLink} className="player__video" poster={movie.backgroundImage}></video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <button onClick={() => navigate(-1)} type="button" className="player__exit">Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value="30" max="100"></progress>
-            <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
+            <progress className="player__progress" value="0" max="100"></progress>
+            <div className="player__toggler">Toggler</div>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">{Math.floor(movie.runTime / 60)}:{movie.runTime % 60}</div>
         </div>
 
         <div className="player__controls-row">
@@ -21,7 +36,7 @@ export default function Player(): JSX.Element{
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{movie.name}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">

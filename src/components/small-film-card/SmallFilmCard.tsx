@@ -1,11 +1,26 @@
-export default function SmallFillCard(): JSX.Element{
+import { useState } from 'react';
+import { AppRoute } from '../../const';
+import VideoPlayer from '../video-player/Video-player';
+import { Link, generatePath } from 'react-router-dom';
+
+type FilmCardProps = {
+  id: string;
+  name: string;
+  previewImage: string;
+  previewVideoLink: string;
+  isMuted: boolean;
+}
+
+export default function SmallFillCard(props:FilmCardProps): JSX.Element{
+  const [isActive, setIsActive] = useState(false);
+
   return(
-    <article className="small-film-card catalog__films-card">
+    <article onMouseEnter={() => setIsActive(true)} onMouseLeave={() => setIsActive(false)} className="small-film-card catalog__films-card">
       <div className="small-film-card__image">
-        <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
+        <VideoPlayer isMuted={props.isMuted} isActive={isActive} posterSrc={props.previewImage} videoSrc={props.previewVideoLink} />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
+        <Link className="small-film-card__link" to={generatePath(AppRoute.Film, { id: props.id })}>{props.name}</Link>
       </h3>
     </article>
   );

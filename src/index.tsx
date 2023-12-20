@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/App';
-import { DataMovie } from './const';
-import { films } from './mocks/films';
+import { mainData } from './mocks/main';
+import { moviePreviews } from './mocks/movie-previews';
+// import { movies } from './mocks/movies';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,11 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App
-      promoMovie = {DataMovie.promoMovie}
-      nameMovie = {DataMovie.nameMovie}
-      genre = {DataMovie.genre}
-      releaseDate = {DataMovie.releaseDate}
-      films = {films}
+      main={mainData}
+      moviePreviews={moviePreviews}
+      // movies={movies}
     />
   </React.StrictMode>
 );

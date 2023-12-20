@@ -1,7 +1,14 @@
+import { MoviePreview } from '../../types/types';
 import SmallFillCard from '../small-film-card/SmallFilmCard';
 
-export default function ListFilm(): JSX.Element{
-  const numberOfFilms = 20;
+type ListFilmProps = {
+  length: number;
+  moviePreviews: MoviePreview[];
+}
+
+export default function ListFilm(props:ListFilmProps): JSX.Element{
+  const movies = props.moviePreviews.slice(0, props.length);
+
   return(
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -40,9 +47,15 @@ export default function ListFilm(): JSX.Element{
       </ul>
 
       <div className="catalog__films-list">
-        {Array.from({ length: numberOfFilms }, (_, index) => (
-          <SmallFillCard key={index} />
-        ))}
+        {movies.map(({ id, name, previewImage, previewVideoLink }) => (
+          <SmallFillCard
+            key={id}
+            previewVideoLink={previewVideoLink}
+            id={id}
+            isMuted
+            name={name}
+            previewImage={previewImage}
+          />))}
       </div>
 
       <div className="catalog__more">
