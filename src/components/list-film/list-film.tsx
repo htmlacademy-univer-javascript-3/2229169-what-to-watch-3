@@ -1,5 +1,6 @@
 import { MoviePreview } from '../../types/movie-types';
 import FillCard from '../film-card/FilmCard';
+import ShowMoreButton from '../show-more-btn/show-more-btn';
 
 type ListFilmProps = {
   length: number;
@@ -57,10 +58,7 @@ export default function ListFilm(props:ListFilmProps): JSX.Element{
             previewImage={previewImage}
           />))}
       </div>
-
-      <div className="catalog__more">
-        <button className="catalog__button" type="button">Show more</button>
-      </div>
+      <ShowMoreButton/>
     </section>
   );
 }
