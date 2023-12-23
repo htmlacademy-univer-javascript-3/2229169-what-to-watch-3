@@ -1,5 +1,5 @@
-import { MoviePreview } from '../../types/types';
-import SmallFillCard from '../small-film-card/SmallFilmCard';
+import { MoviePreview } from '../../types/movie-types';
+import FillCard from '../film-card/FilmCard';
 
 type ListFilmProps = {
   length: number;
@@ -48,7 +48,7 @@ export default function ListFilm(props:ListFilmProps): JSX.Element{
 
       <div className="catalog__films-list">
         {movies.map(({ id, name, previewImage, previewVideoLink }) => (
-          <SmallFillCard
+          <FillCard
             key={id}
             previewVideoLink={previewVideoLink}
             id={id}

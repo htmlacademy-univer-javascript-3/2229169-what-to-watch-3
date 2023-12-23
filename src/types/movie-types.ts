@@ -1,15 +1,20 @@
-export type MovieBase = {
+export type MovieMain = {
   id: string;
   name: string;
   genre: string;
 }
 
-export type MoviePreview = MovieBase & {
+export type PromoCard = MovieMain & {
+  date: number;
+  img: string;
+}
+
+export type MoviePreview = MovieMain & {
   previewImage: string;
   previewVideoLink: string;
 }
 
-export type Movie = MovieBase & {
+export type Movie = MovieMain & {
   posterImage: string;
   backgroundImage: string;
   backgroundColor: string;

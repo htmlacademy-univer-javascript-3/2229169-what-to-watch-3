@@ -1,5 +1,5 @@
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { Movies } from '../../types/types';
+import { Movies } from '../../types/movie-types';
 
 type PlayerProps = {
   movies: Movies;
