@@ -35,3 +35,5 @@ export const MONTHS = [
   'Nobember',
   'December',
 ];
+
+export const DEFAULT_GENRES = 'All genres';
