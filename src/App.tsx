@@ -1,23 +1,19 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute, AuthStatus } from '../../const';
-import SingIn from '../../pages/sing-in/SingIn';
-import MyList from '../../pages/my-list/MyList';
-import AddReview from '../../pages/add-review/AddReview';
-import Player from '../../pages/player/Player';
-import MoviePage from '../../pages/movie-page/MoviePage';
-import NotFound from '../404-not-found/NotFound';
-import PriviteRoute from '../privite-route/PriviteRoute';
-import MainPage from '../../pages/main-page/MainPage';
-import { MoviePreview, Movies } from '../../types/types';
+import { AppRoute, AuthStatus } from './const';
+import {
+  SingIn,
+  MainPage,
+  MyList,
+  MoviePage,
+  AddReview,
+  Player,
+  NotFound,
+} from './pages';
+import { MoviePreview, Movies, PromoCard } from './types/movie-types';
+import PriviteRoute from './components/privite-route/privite-route';
 
 type AppProps = {
-  main: {
-    name: string;
-    genre: string;
-    date: number;
-    id: number;
-    img: string;
-  };
+  promoCard: PromoCard;
   moviePreviews: MoviePreview[];
   movies: Movies;
 }
@@ -30,12 +26,8 @@ export default function App(props: AppProps): JSX.Element{
           path={AppRoute.Main}
           element={
             <MainPage
-              id={props.main.id}
+              promoCard={props.promoCard}
               moviePreviews={props.moviePreviews}
-              name={props.main.name}
-              genre={props.main.genre}
-              date={props.main.date}
-              img={props.main.img}
             />
           }
         />

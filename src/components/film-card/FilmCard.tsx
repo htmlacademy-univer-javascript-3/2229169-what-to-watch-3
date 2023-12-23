@@ -1,42 +1,27 @@
-import { useNavigate } from 'react-router-dom';
-import { MainPageProps } from '../../pages/main-page/MainPage';
+import { useState } from 'react';
+import { AppRoute } from '../../const';
+import { Link, generatePath } from 'react-router-dom';
+import VideoPlayer from '../video-player/Video-player';
 
-export default function FilmCard (props: MainPageProps): JSX.Element{
-  const navigate = useNavigate();
+type FilmCardProps = {
+  id: string;
+  name: string;
+  previewImage: string;
+  previewVideoLink: string;
+  isMuted: boolean;
+}
+
+export default function FillCard(props:FilmCardProps): JSX.Element{
+  const [isActive, setIsActive] = useState(false);
 
   return(
-    <div className="film-card__wrap">
-      <div className="film-card__info">
-        <div className="film-card__poster">
-          <img src={props.img} alt="The Grand Budapest Hotel poster" width="218" height="327" />
-        </div>
-
-        <div className="film-card__desc">
-          <h2 className="film-card__title">{props.name}</h2>
-          <p className="film-card__meta">
-            <span className="film-card__genre">{props.genre}</span>
-            <span className="film-card__year">{props.date}</span>
-          </p>
-
-          <div className="film-card__buttons">
-            <button className="btn btn--play film-card__button" type="button"
-              onClick={() => navigate(`/player/${props.id}`)}
-            >
-              <svg viewBox="0 0 19 19" width="19" height="19">
-                <use href="#play-s"></use>
-              </svg>
-              <span>Play</span>
-            </button>
-            <button className="btn btn--list film-card__button" type="button">
-              <svg viewBox="0 0 19 20" width="19" height="20">
-                <use href="#add"></use>
-              </svg>
-              <span>My list</span>
-              <span className="film-card__count">9</span>
-            </button>
-          </div>
-        </div>
+    <article onMouseEnter={() => setIsActive(true)} onMouseLeave={() => setIsActive(false)} className="small-film-card catalog__films-card">
+      <div className="small-film-card__image">
+        <VideoPlayer isMuted={props.isMuted} isActive={isActive} posterSrc={props.previewImage} videoSrc={props.previewVideoLink} />
       </div>
-    </div>
+      <h3 className="small-film-card__title">
+        <Link className="small-film-card__link" to={generatePath(AppRoute.Film, { id: props.id })}>{props.name}</Link>
+      </h3>
+    </article>
   );
 }

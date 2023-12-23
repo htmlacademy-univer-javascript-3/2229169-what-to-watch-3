@@ -29,7 +29,8 @@ export default function VideoPlayer(props: VideoPlayerProps) {
       ref={videoRef}
       src={props.videoSrc}
       poster={props.posterSrc}
-      width={280} height={175}
+      width={280}
+      height={175}
       muted={props.isMuted}
     >
     </video>
