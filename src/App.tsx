@@ -1,76 +1,72 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute, AuthStatus } from './const';
+import { AppRoute } from './const';
+import { Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import PrivateRoute from './components/private-route/private-route';
 import {
-  SingIn,
   MainPage,
   MyList,
-  MoviePage,
-  AddReview,
-  Player,
   NotFound,
+  SingIn,
+  FilmPage,
+  AddReview,
+  Player
 } from './pages';
-import { MoviePreview, Movies, PromoCard } from './types/movie-types';
-import PriviteRoute from './components/privite-route/privite-route';
+import { useAppSelector } from './hooks/redux';
+import Spinner from './components/spinner/spinner';
+import HistoryRouter from './components/history-route/history-route';
+import browserHistory from './services/browser-history';
+import { getAuthorizationStatus } from './store/user-process/user-process.selectors';
+import { getFilmsDataLoadingStatus, getPromoFilmDataLoadingStatus } from './store/wtw-data/wtw-data.selectors';
 
-type AppProps = {
-  promoCard: PromoCard;
-  moviePreviews: MoviePreview[];
-  movies: Movies;
-}
 
-export default function App(props: AppProps): JSX.Element{
-  return(
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path={AppRoute.Main}
-          element={
-            <MainPage
-              promoCard={props.promoCard}
-              moviePreviews={props.moviePreviews}
-            />
-          }
-        />
-        <Route
-          path={AppRoute.SingIn}
-          element={<SingIn/>}
-        />
-        <Route
-          path={AppRoute.MyList}
-          element={
-            <PriviteRoute
-              authStatus={AuthStatus.NoAuth}
-            >
-              <MyList/>
-            </PriviteRoute>
-          }
-        />
-        <Route
-          path={AppRoute.Film}
-          element={
-            <MoviePage
-              movies={props.movies}
-              moviePreviews={props.moviePreviews}
-            />
-          }
-        />
-        <Route
-          path={AppRoute.AddReview}
-          element={<AddReview/>}
-        />
-        <Route
-          path={AppRoute.Player}
-          element={
-            <Player
-              movies={props.movies}
-            />
-          }
-        />
-        <Route
-          path={AppRoute.NotFound}
-          element={<NotFound/>}
-        />
-      </Routes>
-    </BrowserRouter>
+export default function App(): JSX.Element {
+
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isFilmsDataLoading = useAppSelector(getFilmsDataLoadingStatus);
+  const isPromoFilmDataLoading = useAppSelector(getPromoFilmDataLoadingStatus);
+
+  if (isFilmsDataLoading || isPromoFilmDataLoading) {
+    return <Spinner/>;
+  }
+
+  return (
+    <HelmetProvider>
+      <HistoryRouter history={browserHistory}>
+        <Routes>
+          <Route
+            path={AppRoute.Main}
+            element={<MainPage/>}
+          />
+          <Route
+            path={AppRoute.SignIn}
+            element={<SingIn/>}
+          />
+          <Route
+            path={AppRoute.MyList}
+            element={
+              <PrivateRoute authorizationStatus={authorizationStatus}>
+                <MyList/>
+              </PrivateRoute>
+            }
+          />
+          <Route path={AppRoute.Film}>
+            <Route index element={<NotFound/>}/>
+            <Route path=':id'>
+              <Route index element={<FilmPage/>}/>
+              <Route path={AppRoute.AddReview} element={<AddReview/>}/>
+            </Route>
+          </Route>
+          <Route path={AppRoute.Player}>
+            <Route index element={<NotFound/>}/>
+            <Route path=':id' element={<Player/>}/>
+          </Route>
+          <Route
+            path={AppRoute.NotFound}
+            element={<NotFound/>}
+          />
+        </Routes>
+      </HistoryRouter>
+    </HelmetProvider>
   );
 }
+

@@ -1,39 +1,52 @@
-export const DataMovie = {
-  promoMovie: 'img/the-grand-budapest-hotel-poster.jpg',
-  nameMovie: 'The Grand Budapest Hotel',
-  genre: 'Drama',
-  releaseDate: 2014
-};
+export const SECOND_COUNT_IN_HOUR = 3600;
+export const SECOND_COUNT_IN_MINUTE = 60;
+export const DEFAULT_FILMS_COUNT = 8;
 
-export enum AppRoute{
-  Main = '/',
-  SingIn = '/login',
-  MyList = '/myList',
-  Film = '/films/:id',
-  AddReview = '/films/:id/review',
-  Player = '/player/:id',
-  NotFound = '/*'
+export enum RatingText {
+  Bad = 'Bad',
+  Normal = 'Normal',
+  Good = 'Good',
+  VeryGood = 'Very good',
+  Awesome = 'Awesome',
 }
 
-export enum AuthStatus {
+export enum RatingNumber {
+  Bad = 3,
+  Normal = 5,
+  Good = 8,
+  VeryGood = 10,
+}
+
+export enum AppRoute {
+  Main = '/',
+  SignIn = 'login',
+  MyList = 'mylist',
+  Film = 'films',
+  AddReview = 'review',
+  Player = 'player',
+  NotFound = '*',
+}
+
+export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
 
-export const MONTHS = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'Nobember',
-  'December',
-];
+export enum APIRoute {
+  Films = '/films',
+  Promo = '/promo',
+  Similar = '/similar',
+  Favorite ='/favorite',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout'
+}
+
+export enum NameSpace {
+  User = 'USER',
+  Data = 'DATA',
+  Wtw = 'WTW'
+}
 
 export const DEFAULT_GENRES = 'All genres';

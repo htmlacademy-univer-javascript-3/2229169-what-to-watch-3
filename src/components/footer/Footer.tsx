@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
-export default function Footer(): JSX.Element{
-  return(
+export default function Footer(): JSX.Element {
+  return (
     <footer className="page-footer">
       <div className="logo">
         <Link to={AppRoute.Main} className="logo__link logo__link--light">
@@ -11,7 +11,6 @@ export default function Footer(): JSX.Element{
           <span className="logo__letter logo__letter--3">W</span>
         </Link>
       </div>
-
       <div className="copyright">
         <p>© 2019 What to watch Ltd.</p>
       </div>
