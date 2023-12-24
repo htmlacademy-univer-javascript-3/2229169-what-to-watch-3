@@ -1,8 +1,8 @@
-import { useAppSelector } from '../../hooks/redux';
-import { AuthorizationStatus } from '../../const';
-import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import { useAppSelector } from '../../../hooks/redux';
+import { AuthorizationStatus } from '../../../const';
+import { getAuthorizationStatus } from '../../../store/user-process/user-process.selectors';
 import cn from 'classnames';
-import { Login, Logo, Logout } from '..';
+import { Login, Logo, Logout } from '../..';
 
 type HeaderProps = {
   children?: JSX.Element;
