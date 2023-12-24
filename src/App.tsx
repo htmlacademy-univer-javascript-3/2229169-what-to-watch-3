@@ -12,7 +12,7 @@ import {
   Player
 } from './pages';
 import { useAppSelector } from './hooks/redux';
-import Spinner from './components/spinner/spinner';
+import Spinner from './components/ui/spinner/spinner';
 import HistoryRouter from './components/history-route/history-route';
 import browserHistory from './services/browser-history';
 import { getAuthorizationStatus } from './store/user-process/user-process.selectors';

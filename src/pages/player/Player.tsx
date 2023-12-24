@@ -5,8 +5,8 @@ import { AppRoute } from '../../const';
 import useFilmById from '../../hooks/film-by-id';
 import { useAppSelector } from '../../hooks/redux';
 import { getFilmDataLoadingStatus } from '../../store/wtw-data/wtw-data.selectors';
-import { getRunTime } from '../../utils/get-run-time';
-import { getTimeLeft } from '../../utils/get-time-left';
+import { getRunTime } from '../../utils/get-run-time/get-run-time';
+import { getTimeLeft } from '../../utils/get-time-left/get-time-left';
 import { Spinner } from '../../components';
 
 export default function Player(): JSX.Element {

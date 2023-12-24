@@ -1,4 +1,4 @@
-import { getRunTime } from '../../utils/get-run-time';
+import { getRunTime } from '../../utils/get-run-time/get-run-time';
 import { FilmDetailsProps } from './tabs-props';
 
 export default function FilmDetails({director, starring, runTime, genre, released}: FilmDetailsProps): JSX.Element {
