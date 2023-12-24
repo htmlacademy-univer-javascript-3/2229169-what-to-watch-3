@@ -1,64 +1,70 @@
-import { MoviePreview } from '../../types/movie-types';
-import FillCard from '../film-card/FilmCard';
-import ShowMoreButton from '../show-more-btn/show-more-btn';
+import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute, DEFAULT_GENRES, DEFAULT_FILMS_COUNT } from '../../const';
+import { FilmCard, ShowMoreButton } from '..';
+import { FilmCardProps } from '../film-card/film-card-props';
 
-type ListFilmProps = {
-  length: number;
-  moviePreviews: MoviePreview[];
+
+type FilmsListProps = {
+  filmCards: FilmCardProps[];
+  id?: string;
+  genre?: string;
 }
 
-export default function ListFilm(props:ListFilmProps): JSX.Element{
-  const movies = props.moviePreviews.slice(0, props.length);
+export default function ListFilm({filmCards, id, genre}: FilmsListProps): JSX.Element {
+  const [idActiveFilm, setIdActiveFilm] = useState('');
+  const [idActiveVideo, setIdActiveVideo] = useState('');
+  const [countShownFilms, setCountShownFilm] = useState(DEFAULT_FILMS_COUNT);
 
-  return(
-    <section className="catalog">
-      <h2 className="catalog__title visually-hidden">Catalog</h2>
+  const navigate = useNavigate();
 
-      <ul className="catalog__genres-list">
-        <li className="catalog__genres-item catalog__genres-item--active">
-          <a href="#" className="catalog__genres-link">All genres</a>
-        </li>
-        <li className="catalog__genres-item">
-          <a href="#" className="catalog__genres-link">Comedies</a>
-        </li>
-        <li className="catalog__genres-item">
-          <a href="#" className="catalog__genres-link">Crime</a>
-        </li>
-        <li className="catalog__genres-item">
-          <a href="#" className="catalog__genres-link">Documentary</a>
-        </li>
-        <li className="catalog__genres-item">
-          <a href="#" className="catalog__genres-link">Dramas</a>
-        </li>
-        <li className="catalog__genres-item">
-          <a href="#" className="catalog__genres-link">Horror</a>
-        </li>
-        <li className="catalog__genres-item">
-          <a href="#" className="catalog__genres-link">Kids & Family</a>
-        </li>
-        <li className="catalog__genres-item">
-          <a href="#" className="catalog__genres-link">Romance</a>
-        </li>
-        <li className="catalog__genres-item">
-          <a href="#" className="catalog__genres-link">Sci-Fi</a>
-        </li>
-        <li className="catalog__genres-item">
-          <a href="#" className="catalog__genres-link">Thrillers</a>
-        </li>
-      </ul>
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const relevantFilms = genre !== DEFAULT_GENRES
+    ? filmCards.filter((film) => film.id !== id && film.genre === genre)
+    : filmCards;
 
+  const handleFilmMouseOver = (filmId: string) => {
+    setIdActiveFilm(filmId);
+    timeoutRef.current = setTimeout(() => {
+      setIdActiveVideo(filmId);
+    }, 1000);
+  };
+
+  const handleFilmMouseLeave = () => {
+    setIdActiveFilm('');
+    setIdActiveVideo('');
+    clearTimeout(timeoutRef.current as NodeJS.Timeout);
+  };
+
+  const handleShownMoreClick = () => {
+    setCountShownFilm((prev) => prev + DEFAULT_FILMS_COUNT);
+  };
+
+  return (
+    <>
       <div className="catalog__films-list">
-        {movies.map(({ id, name, previewImage, previewVideoLink }) => (
-          <FillCard
-            key={id}
-            previewVideoLink={previewVideoLink}
-            id={id}
-            isMuted
-            name={name}
-            previewImage={previewImage}
-          />))}
+        {relevantFilms
+          .slice(0, countShownFilms)
+          .map((filmCard: FilmCardProps) => (
+            <article className="small-film-card catalog__films-card"
+              key={filmCard.id}
+              onMouseOver={() => handleFilmMouseOver(filmCard.id)}
+              onMouseLeave={handleFilmMouseLeave}
+              onClick={() => navigate(`/${AppRoute.Film}/${idActiveFilm}`)}
+            >
+              <FilmCard
+                id={filmCard.id}
+                previewImage={filmCard.previewImage}
+                previewVideoLink={filmCard.previewVideoLink}
+                name={filmCard.name}
+                isActiveVideo={idActiveVideo === filmCard.id}
+              />
+            </article>
+          ))}
       </div>
-      <ShowMoreButton/>
-    </section>
+      {countShownFilms >= relevantFilms.length
+        ? ''
+        : <div className="catalog__more" onClick={() => handleShownMoreClick()}><ShowMoreButton/></div>}
+    </>
   );
 }
