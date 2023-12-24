@@ -1,4 +1,7 @@
-import { VideoPlayerProps } from './video-player-props';
+type VideoPlayerProps = {
+  previewVideoLink: string;
+  previewImage:string;
+}
 
 export default function VideoPlayer({previewVideoLink, previewImage}: VideoPlayerProps): JSX.Element {
   return (
