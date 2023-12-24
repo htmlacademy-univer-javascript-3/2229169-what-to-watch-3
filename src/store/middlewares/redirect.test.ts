@@ -6,7 +6,7 @@ import { redirectToRoute } from '../action';
 import { AppRoute } from '../../const';
 import { State } from '../../types/state';
 
-jest.mock('../../browser-history', () => ({
+jest.mock('../../services/browser-history', () => ({
   location: { pathname: '' },
   push(path: string) {
     this.location.pathname = path;
