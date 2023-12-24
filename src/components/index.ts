@@ -1,7 +1,7 @@
 export { default as ListFilm } from './list-film/list-film';
-export { default as Footer } from './footer/footer';
+export { default as Footer } from './ui/footer/footer';
 export { default as GenreList } from './genre-list/genre-list';
-export { default as Header } from './header/header';
+export { default as Header } from './ui/header/header';
 export { default as Login } from './login/login';
 export { default as Logo } from './logo/logo';
 export { default as Logout } from './logout/logout';
