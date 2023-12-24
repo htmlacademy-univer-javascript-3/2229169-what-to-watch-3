@@ -1,11 +1,17 @@
-import { assert } from 'chai';
-import { configureMockStore, MockStore } from '@jedmao/redux-mock-store';
+import { MockStore, configureMockStore } from '@jedmao/redux-mock-store';
 import { redirect } from './redirect';
 import * as browserHistory from '../../services/browser-history';
 import { AnyAction } from '@reduxjs/toolkit';
 import { redirectToRoute } from '../action';
 import { AppRoute } from '../../const';
 import { State } from '../../types/state';
+
+jest.mock('../../services/browser-history', () => ({
+  location: { pathname: '' },
+  push(path: string) {
+    this.location.pathname = path;
+  }
+}));
 
 describe('Redirect middleware', () => {
   let store: MockStore<State, AnyAction>;
@@ -28,7 +34,7 @@ describe('Redirect middleware', () => {
     if (history.default && history.default.location && typeof history.default.location.pathname === 'string') {
       const redirectAction = redirectToRoute(AppRoute.SignIn);
       store.dispatch(redirectAction);
-      assert.strictEqual(history.default.location.pathname, AppRoute.SignIn);
+      expect(history.default.location.pathname).toBe('/login'); // Изменили утверждение здесь
     }
   });
 
@@ -37,7 +43,7 @@ describe('Redirect middleware', () => {
     if (history.default && history.default.location && typeof history.default.location.pathname === 'string') {
       const emptyAction = { type: '', payload: AppRoute.Main };
       store.dispatch(emptyAction);
-      assert.notStrictEqual(history.default.location.pathname, AppRoute.Main);
+      expect(history.default.location.pathname).not.toBe(AppRoute.Main);
     }
   });
 });
