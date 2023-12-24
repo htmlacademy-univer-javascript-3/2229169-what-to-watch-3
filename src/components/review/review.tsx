@@ -1,4 +1,5 @@
-import { getDate, getDateTime } from '../../utils/change-date-format';
+import { getDate, getDateTime } from '../../utils';
+
 
 type ReviewProps = {
   date: string;

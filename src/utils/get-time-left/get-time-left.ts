@@ -1,4 +1,4 @@
-import { SECOND_COUNT_IN_HOUR, SECOND_COUNT_IN_MINUTE } from '../const';
+import { SECOND_COUNT_IN_HOUR, SECOND_COUNT_IN_MINUTE } from '../../const';
 
 export const getTimeLeft = (secondCount: number) => {
   if (secondCount > SECOND_COUNT_IN_HOUR) {

@@ -1,4 +1,4 @@
-import { RatingNumber, RatingText } from '../const';
+import { RatingNumber, RatingText } from '../../const';
 
 export const getTextRepresentationRating = (rating: number) => {
   if (rating < RatingNumber.Bad) {

@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { useAppSelector, useAppDispatch } from '../../hooks/redux';
-import { logoutAction } from '../../store/api-action';
+import { AppRoute } from '../../../const';
+import { useAppSelector, useAppDispatch } from '../../../hooks/redux';
+import { logoutAction } from '../../../store/api-action';
 import { useNavigate } from 'react-router-dom';
-import { getUserInfo } from '../../store/user-process/user-process.selectors';
+import { getUserInfo } from '../../../store/user-process/user-process.selectors';
 
 export default function Logout(): JSX.Element {
   const dispatch = useAppDispatch();

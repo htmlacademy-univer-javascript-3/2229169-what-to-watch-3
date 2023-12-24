@@ -1,10 +1,10 @@
-import { useAppSelector, useAppDispatch } from '../../hooks/redux';
-import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
-import { getFavoriteFilms, getFilm } from '../../store/wtw-data/wtw-data.selectors';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { useAppSelector, useAppDispatch } from '../../../hooks/redux';
+import { getAuthorizationStatus } from '../../../store/user-process/user-process.selectors';
+import { getFavoriteFilms, getFilm } from '../../../store/wtw-data/wtw-data.selectors';
+import { AppRoute, AuthorizationStatus } from '../../../const';
 import { useNavigate } from 'react-router-dom';
-import { changeFavoriteStatusAction } from '../../store/api-action';
-import { Film } from '../../types/film';
+import { changeFavoriteStatusAction } from '../../../store/api-action';
+import { Film } from '../../../types/film';
 import { useState } from 'react';
 
 export default function MyListButton() {
